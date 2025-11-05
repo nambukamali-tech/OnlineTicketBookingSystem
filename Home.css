@@ -1,0 +1,58 @@
+.home-container
+{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+/*Top Section Styles*/
+.top-section
+{
+    display: flex;
+    align-items: center;
+    padding: 50px 5%;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    background: burlywood;
+}
+.top-section-content
+{
+    max-width: 500px;
+}
+.hero-content h1
+{
+    font-size: medium;
+    color: #333;
+}
+.hero-content p
+{
+    color : black;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+.book-btn
+{
+    color: rgb(18, 4, 4);
+    padding: 10px 20px;
+    transition: 0.3s;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    background-color: color-mix(in oklch shorter hue, color percentage, color percentage);
+}
+.book-btn:hover
+{
+  background: #0056b3;
+}
+.top-section-image img
+{
+  height: 450px;
+  width: 100%;
+  object-fit: cover;
+  border-radius:12px ;
+  box-shadow:0 4px 10px rgba(0, 0, 0, 0.1) ;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+.top-section-image img:hover
+{
+    transform: scale(1.03);/*slightly zooms in the image*/
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.25);/* adds Deep Shadow*/
+}
