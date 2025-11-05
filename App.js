@@ -1,20 +1,14 @@
 import React from "react";
-import { BrowserRouter , Routes , Route} from "react-router-dom";
-import login from "./pages/login";
-import signup from "./pages/signup";
-import home from "./pages/home";
+import { createBrowserRouter, RouterProvider} from "react-router-dom";
+import Home from "./pages/Home";
+// Create router using new v7 API
+const router = createBrowserRouter([
+  { path: "/", element: <Home /> },
+]);
 function App()
 {
-  return(
-
-    <BrowserRouter>
-    <Routes>
-      <Route path="/" element={<login/>}/>
-      <Route path="/signup" element={<signup/>}/>
-      <Route path="/home" element={<home/>}/>
-    </Routes>
-    </BrowserRouter>
-  );
+ return <RouterProvider router={router} />;
 }
 export default App;
+
 
