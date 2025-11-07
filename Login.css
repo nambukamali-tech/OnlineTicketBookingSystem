@@ -1,0 +1,94 @@
+.login-container
+{
+    height: 100vh;
+    width: 100%;
+    background: linear-gradient(135deg, #000000, #1a1a1a, #2c2c2c);/*135deg means the direction of gradient flows*/
+    /*It flows in the direction of top-left and bottom-right*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: cursive;
+
+}
+.login-box
+{
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 18px;
+  box-shadow: 0 10px 25px rgba(86, 189, 224, 0.6);
+  width: 380px;
+  padding: 40px 45px;
+  text-align: center;
+  color: white;
+  transition: transform 0.3s ease;
+}
+.login-box :hover
+{
+    transform: translateY(-5px); /*The property moves the login box 5px up*/
+}
+.login-box h1{
+    font-weight: bold;
+    color: #38bdf8;
+    margin-bottom: 10px;
+}
+.login-box p{
+    color: #ccc;
+    font-size: 14px;
+    margin-bottom: 25px;
+}
+.login-group 
+{
+  text-align: left;
+  margin-bottom: 20px;
+}
+.login-group label
+{
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color:#38bdf8;
+
+}
+.login-group input{
+    width:100%;
+    border:none ;
+    border-radius: 8px;
+    outline : none;
+    padding: 10px 15px;
+    color: white;
+    font-size: 14px;
+    transition: 0.3s;
+    background: #1e1e1e;
+}
+.form-group input:focus
+{
+  border: 1px solid rgb(31, 139, 189);
+  box-shadow: 0 0 5px rgb(31, 139, 189);
+}
+.login-button
+{
+    width: 100%;
+    border: none;
+    border-radius: 25px;
+    background-color: #38bdf8;
+    color:#000 ;
+    padding: 12px 25px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+}
+.login-button :hover
+{
+    background-color: #38bdf8;
+}
+.signup-link a
+{
+text-decoration: none;
+font-weight: bolder;
+color: #38bdf8;
+}
+.signup-link a:hover
+{
+    text-decoration: underline;
+}
