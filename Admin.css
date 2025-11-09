@@ -1,0 +1,100 @@
+.admin-container
+{
+    display: flex;
+    height: 100vh;
+    font-family: cursive;
+    background-color:linear-gradient(135deg, burlywood, #e0c097);;
+}
+.admin-sidebar
+{
+    width: 250px;
+    background-color:#0f172a ;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 25px 0;
+    box-shadow: 4px 0 15px rgba(0,0,0,0.2);
+}
+.sidebar-title
+{
+    font-size: 22px;
+    margin-bottom: 30px;
+    font-weight: bold;
+}
+.sidebar-links
+{
+    list-style: none;
+    padding: 0;
+    width: 100%;
+}
+.sidebar-links li{
+    width: 100%;
+    text-align: center;
+    margin: 10px 0;
+}
+.sidebar-links li a
+{
+    text-decoration: none;
+    color: white;
+    display: block;
+    font-weight: bold;
+    transition: background 0.3s;
+    padding: 10px 0;
+
+}
+.sidebar-links a:hover
+{
+  background: #1e293b;
+  color: #ffdd57;
+}
+.admin-main
+{
+    flex-grow: 1;
+    padding: 40px;
+}
+.admin-main h1
+{
+    font-size:24px ;
+    color: #0f172a;
+    margin-bottom: 10px;
+}
+.admin-main p
+{
+    color: #333;
+    margin-bottom: 30px;
+}
+.admin-cards
+{
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+.cards
+{
+    background: white;
+    text-align: center;
+    flex: 1;
+    padding: 20px;
+    border-radius: 12px;
+    min-width: 220px;
+    box-shadow: 0px 4px 15px rgba(0,0,0,0.2);
+    transition: transform 0.3s, boxshadow 0.3s;
+}
+.cards :hover
+{
+    transform: translateY(-5px);
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.3);
+}
+.cards h4
+{
+color: #0f172a;
+margin-bottom: 10px;
+}
+.cards p
+{
+    color: #333;
+    font-weight: bold;
+    font-size: 22px;
+   
+}
