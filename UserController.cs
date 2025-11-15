@@ -1,81 +1,107 @@
-﻿using OnlineTicketBookingSystem.Models;//Add namespace for extract the datas from Models
+using OnlineTicketBookingSystem.Models;
 using System;
-using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
-using System.Runtime.Remoting.Messaging;
-using System.Web;
-using System.Web.Mvc;
 using System.Data.SqlClient;
+using System.Web.Mvc;
 
 namespace OnlineTicketBookingSystem.Controllers
 {
-    //In this User controller we handle both signup and login informations of users
     public class UserController : Controller
     {
-        
-       string connectionString = ConfigurationManager.ConnectionStrings["TicketData"].ConnectionString;
+        string connectionString = ConfigurationManager.ConnectionStrings["TicketData"].ConnectionString;
 
-        //Signup : POST Method
+        // Allow CORS + Handle OPTIONS requests
+        protected override void OnActionExecuting(ActionExecutingContext filterContext)
+        {
+            Response.Headers.Add("Access-Control-Allow-Origin", "http://localhost:3000");
+            Response.Headers.Add("Access-Control-Allow-Headers", "Content-Type");
+            Response.Headers.Add("Access-Control-Allow-Methods", "POST,GET,OPTIONS");
+
+            // Handle preflight OPTIONS request
+            if (Request.HttpMethod == "OPTIONS")
+            {
+                filterContext.Result = new HttpStatusCodeResult(200);
+                return;
+            }
+
+            base.OnActionExecuting(filterContext);
+        }
+
+        // ===================== SIGNUP ======================
         [HttpPost]
-        public JsonResult Signup(UserSignup user)//Here the "user" is an object for UserSignup Model class
+        public JsonResult Signup(UserSignup user)
         {
             try
             {
-                using (SqlConnection con = new SqlConnection(connectionString))//Take the Sql Connection from connectionString "webconfig"
+                if (user == null)
                 {
-                    string query = "insert into UserSignup(FirstName , LastName , Email , Password , ConfirmPassword) values (@FirstName , @LastName , @Email , @Password , @ConfirmPassword) ";
+                    return Json(new { success = false, message = "Invalid JSON received" },
+                        JsonRequestBehavior.AllowGet);
+                }
+
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+                    string query = @"INSERT INTO UserSignup
+                                     (FirstName, LastName, Email, Password, ConfirmPassword)
+                                     VALUES
+                                     (@FirstName, @LastName, @Email, @Password, @ConfirmPassword)";
+
                     SqlCommand cmd = new SqlCommand(query, con);
                     cmd.Parameters.AddWithValue("@FirstName", user.FirstName);
                     cmd.Parameters.AddWithValue("@LastName", user.LastName);
                     cmd.Parameters.AddWithValue("@Email", user.Email);
                     cmd.Parameters.AddWithValue("@Password", user.Password);
                     cmd.Parameters.AddWithValue("@ConfirmPassword", user.ConfirmPassword);
-                    con.Open();//Connection open
+
+                    con.Open();
                     int rows = cmd.ExecuteNonQuery();
-                    con.Close();//Connection closed
+
                     if (rows > 0)
-
-                        return Json(new { success = true, message = "Signup Successfully" });
+                        return Json(new { success = true, message = "Signup Successfully" }, JsonRequestBehavior.AllowGet);
                     else
-                        return Json(new { success = false, message = "Signup Failed" });
-
+                        return Json(new { success = false, message = "Signup Failed" }, JsonRequestBehavior.AllowGet);
                 }
             }
             catch (Exception ex)
             {
-                return Json(new { success = false, message = ex.Message });
+                return Json(new { success = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
             }
-            
         }
 
-        //Login : POST Method
-        [HttpPost]//It means the Page Only runs when the frontend react starts the Post request
+        // ===================== LOGIN ======================
+        [HttpPost]
         public JsonResult Login(UserLogin user)
         {
             try
             {
+                if (user == null)
+                {
+                    return Json(new { success = false, message = "Invalid JSON received" },
+                        JsonRequestBehavior.AllowGet);
+                }
+
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
-                    string query = "Select count(*) from UserSignup where Email = @Email and Password = @Password";
+                    string query = @"SELECT COUNT(*) FROM UserSignup 
+                                     WHERE Email = @Email AND Password = @Password";
+
                     SqlCommand cmd = new SqlCommand(query, con);
                     cmd.Parameters.AddWithValue("@Email", user.Email);
                     cmd.Parameters.AddWithValue("@Password", user.Password);
+
                     con.Open();
                     int count = (int)cmd.ExecuteScalar();
-                    con.Close();
+
                     if (count > 0)
-                        return Json(new { success = true, message = "Login Successfully!" });
+                        return Json(new { success = true, message = "Login Successfully!" }, JsonRequestBehavior.AllowGet);
                     else
-                        return Json(new { success = false, message = "Login failed" });
+                        return Json(new { success = false, message = "Invalid Email or Password" }, JsonRequestBehavior.AllowGet);
                 }
             }
             catch (Exception ex)
             {
-                return Json(new { success = false, message = ex.Message });
+                return Json(new { success = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
             }
-
         }
-
     }
 }
