@@ -7,12 +7,13 @@ function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const API_URL = "https://localhost:44355/User/Signup"; 
+  
+  const API_URL = "http://localhost:44355/User/Signup"; // Make sure your MVC backend URL matches
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Simple client-side validation
+    // Client-side validation
     if (!firstName || !lastName || !email || !password) {
       alert("Please fill all required fields");
       return;
@@ -35,12 +36,21 @@ function Signup() {
         })
       });
 
-      // If backend returns non-JSON or error status, handle it
-      const data = await res.json().catch(() => ({ success: false, message: "Invalid response" }));
+      const data = await res.json().catch(() => ({
+        success: false,
+        message: "Invalid response from server"
+      }));
+
+      console.log("Backend response:", data);
 
       if (res.ok && data.success) {
         alert(data.message || "Signup successful");
-        // optionally clear form or navigate to login
+        // Clear form
+        setFirstName("");
+        setLastName("");
+        setEmail("");
+        setPassword("");
+        setConfirmPassword("");
       } else {
         alert(data.message || `Signup failed (status ${res.status})`);
       }
@@ -53,30 +63,62 @@ function Signup() {
   return (
     <div className="signup-container">
       <div className="signup-box">
-        <h4>Hey New Traveller ! Please Fill the Details to Signup</h4>
+        <h4>Hey New Traveller! Please Fill the Details to Signup</h4>
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label>Enter your FirstName</label>
-            <input value={firstName} onChange={e => setFirstName(e.target.value)} type="text" placeholder="FirstName.." required />
+            <input
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+              type="text"
+              placeholder="FirstName.."
+              required
+            />
           </div>
           <div className="form-group">
             <label>Enter your LastName</label>
-            <input value={lastName} onChange={e => setLastName(e.target.value)} type="text" placeholder="LastName" required />
+            <input
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+              type="text"
+              placeholder="LastName"
+              required
+            />
           </div>
           <div className="form-group">
             <label>Enter your Email Address</label>
-            <input value={email} onChange={e => setEmail(e.target.value)} type="email" placeholder="Email" required />
+            <input
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              type="email"
+              placeholder="Email"
+              required
+            />
           </div>
           <div className="form-group">
             <label>Enter your Password</label>
-            <input value={password} onChange={e => setPassword(e.target.value)} type="password" placeholder="Password" required />
+            <input
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              type="password"
+              placeholder="Password"
+              required
+            />
           </div>
           <div className="form-group">
             <label>Confirm Your Password</label>
-            <input value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)} type="password" placeholder="Confirm Password" required />
+            <input
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              type="password"
+              placeholder="Confirm Password"
+              required
+            />
           </div>
           <button type="submit" className="signup-button">SIGNUP</button>
-          <p className="login-link">Already have an account ? Please Login here <a href="/Login">LOGIN</a></p>
+          <p className="login-link">
+            Already have an account? Please Login here <a href="/Login">LOGIN</a>
+          </p>
         </form>
       </div>
     </div>
