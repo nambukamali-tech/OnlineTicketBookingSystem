@@ -7,17 +7,17 @@ function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  
-  const API_URL = "http://localhost:44355/User/Signup"; // Make sure your MVC backend URL matches
+
+  const API_URL = "http://localhost:44355/User/Signup"; // must match backend port
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Client-side validation
-    if (!firstName || !lastName || !email || !password) {
-      alert("Please fill all required fields");
+    if (!firstName || !lastName || !email || !password || !confirmPassword) {
+      alert("Please fill all fields");
       return;
     }
+
     if (password !== confirmPassword) {
       alert("Passwords do not match");
       return;
@@ -27,33 +27,12 @@ function Signup() {
       const res = await fetch(API_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          FirstName: firstName,
-          LastName: lastName,
-          Email: email,
-          Password: password,
-          ConfirmPassword: confirmPassword
-        })
+        body: JSON.stringify({ FirstName: firstName, LastName: lastName, Email: email, Password: password, ConfirmPassword: confirmPassword })
       });
 
-      const data = await res.json().catch(() => ({
-        success: false,
-        message: "Invalid response from server"
-      }));
-
-      console.log("Backend response:", data);
-
-      if (res.ok && data.success) {
-        alert(data.message || "Signup successful");
-        // Clear form
-        setFirstName("");
-        setLastName("");
-        setEmail("");
-        setPassword("");
-        setConfirmPassword("");
-      } else {
-        alert(data.message || `Signup failed (status ${res.status})`);
-      }
+      const data = await res.json();
+      if (res.ok && data.success) alert(data.message);
+      else alert(data.message || "Signup failed");
     } catch (err) {
       console.error("Network error:", err);
       alert("Network error: " + err.message);
@@ -63,62 +42,14 @@ function Signup() {
   return (
     <div className="signup-container">
       <div className="signup-box">
-        <h4>Hey New Traveller! Please Fill the Details to Signup</h4>
+        <h4>Hey New Traveller! Fill the Details to Signup</h4>
         <form onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label>Enter your FirstName</label>
-            <input
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
-              type="text"
-              placeholder="FirstName.."
-              required
-            />
-          </div>
-          <div className="form-group">
-            <label>Enter your LastName</label>
-            <input
-              value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
-              type="text"
-              placeholder="LastName"
-              required
-            />
-          </div>
-          <div className="form-group">
-            <label>Enter your Email Address</label>
-            <input
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              type="email"
-              placeholder="Email"
-              required
-            />
-          </div>
-          <div className="form-group">
-            <label>Enter your Password</label>
-            <input
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              type="password"
-              placeholder="Password"
-              required
-            />
-          </div>
-          <div className="form-group">
-            <label>Confirm Your Password</label>
-            <input
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              type="password"
-              placeholder="Confirm Password"
-              required
-            />
-          </div>
-          <button type="submit" className="signup-button">SIGNUP</button>
-          <p className="login-link">
-            Already have an account? Please Login here <a href="/Login">LOGIN</a>
-          </p>
+          <input type="text" placeholder="FirstName" value={firstName} onChange={e => setFirstName(e.target.value)} required />
+          <input type="text" placeholder="LastName" value={lastName} onChange={e => setLastName(e.target.value)} required />
+          <input type="email" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} required />
+          <input type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} required />
+          <input type="password" placeholder="Confirm Password" value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)} required />
+          <button type="submit">SIGNUP</button>
         </form>
       </div>
     </div>
