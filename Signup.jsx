@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "./Signup.css";
 
 function Signup() {
   const [firstName, setFirstName] = useState("");
@@ -7,8 +8,7 @@ function Signup() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  // Make sure this URL matches your backend HTTPS address and port exactly
-  const API_URL = "/Ticketry/Signup";
+  const API_URL = "/Ticketry/Signup"; // proxy setup
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -26,10 +26,8 @@ function Signup() {
     try {
       const res = await fetch(API_URL, {
         method: "POST",
-        
         headers: {
           "Content-Type": "application/json",
-          "Accept": "application/json",
         },
         body: JSON.stringify({
           FirstName: firstName,
@@ -58,43 +56,58 @@ function Signup() {
       <div className="signup-box">
         <h4>Hey New Traveller! Fill the Details to Signup</h4>
         <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            placeholder="FirstName"
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
-            required
-          />
-          <input
-            type="text"
-            placeholder="LastName"
-            value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
-            required
-          />
-          <input
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-          <input
-            type="password"
-            placeholder="Confirm Password"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            required
-          />
-          <button type="submit">SIGNUP</button>
+          <div className="form-group">
+            <input
+              type="text"
+              placeholder="First Name"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <input
+              type="text"
+              placeholder="Last Name"
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <input
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <input
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <input
+              type="password"
+              placeholder="Confirm Password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              required
+            />
+          </div>
+          <button type="submit" className="signup-button">
+            SIGNUP
+          </button>
         </form>
+        <div className="login-link">
+          Already have an account? <a href="/login">Login</a>
+        </div>
       </div>
     </div>
   );
