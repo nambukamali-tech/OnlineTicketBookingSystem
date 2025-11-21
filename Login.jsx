@@ -16,8 +16,8 @@ function Login()
                         <label>Password</label>
                         <input type="password" placeholder="Enter your Email Password" required/>
                     </div>
-                    <button className="login-button">LOGIN</button>
-                    <p className="signup-link">Don't have an account!Please<a href="Signup">SIGNUP</a></p>
+                    <button className="login-button"><a href="Booking">LOGIN</a></button>
+                    <p className="signup-link">Don't have an account! Please <a href="Signup">SIGNUP</a></p>
                 </form>
             </div>
         </div>
