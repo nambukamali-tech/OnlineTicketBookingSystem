@@ -4,21 +4,67 @@
     display: flex;
     justify-content: center;
     align-items: center;
-     background: linear-gradient(135deg, burlywood, #deb887, #d2a679);
+     background: linear-gradient(135deg, #000000, #1a1a1a, #2c2c2c);
 }
-.booking-card
-{
-    background: white;
+
+.booking-card {
+    background: rgba(56, 189, 248, 0.12);
+    backdrop-filter: blur(18px);
+    border: 1px solid rgba(56, 189, 248, 0.25);
+    border-radius: 18px;
+    box-shadow: 0 10px 25px rgba(56, 189, 248, 0.35);
     padding: 40px 50px;
-    width: 400px;
-    border-radius: 12px;
-    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+    margin-bottom: 30px;
+    top: 0%;
+    height: 100%;
+    width: 100%;
+    max-width: 400px;
 }
+
 .booking-card h3
 {
     text-align: center;
-    color:#0f172a;
+    color:white;
     margin-bottom: 20px;
+}
+/* 🔵 NAVBAR */
+.nav-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 80px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  z-index: 100;
+}
+
+.nav-logo {
+  font-family: fantasy;
+  font-weight: bold;
+  font-size: 2rem;
+  color: #c8cbcc;
+}
+
+/* remove dot marks */
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 25px;
+}
+
+.nav-links li a {
+  color: #e0e1e2;
+  font-weight: bold;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.nav-links li a:hover {
+  color: #38bdf8;
 }
 form
 {
@@ -29,6 +75,7 @@ label
 {
     font-weight: bold;
     margin-top: 10px;
+    color: white;
 }
 input
 {
@@ -46,7 +93,7 @@ input:focus
 .TotalPrice
 {
     font-weight: bolder;
-    color: #0f172a;
+    color: #cbcdd1;
     text-align: center;
     margin-top: 15px;
     font-size: 18px;
